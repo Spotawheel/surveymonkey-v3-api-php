@@ -1,10 +1,10 @@
 {
-    "name": "spotawheel/surveymonkey-v3-api-php",
+    "name": "ghassani/surveymonkey-v3-api-php",
     "version" : "1.1.2",
     "authors": [
         {
-            "name": "George Papanotas",
-            "email": "george.papanotas@spotawheel.com"
+            "name": "Gassan Idriss",
+            "email": "ghassani@gmail.com"
         }
     ],
     "license": "GPL-3.0",

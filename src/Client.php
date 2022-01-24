@@ -21,7 +21,7 @@ use Spliced\SurveyMonkey\Api;
 class Client
 {
     /** @const string */
-    const BASE_ENDPOINT = 'https://api.eu.surveymonkey.com/v3/';
+    const BASE_ENDPOINT = 'https://api.surveymonkey.net/v3/';
 
     /** @var HttpClient */
     protected $httpClient;
@@ -31,6 +31,9 @@ class Client
 
     /** @var string */
     protected $accessToken;
+
+    /**  Used for datacenters other than default */
+    private $customEndpoint;
 
     /**
      * Include all traits to expose API methods
@@ -56,10 +59,11 @@ class Client
      * @param $apiKey
      * @param $accessToken
      */
-    public function __construct($apiKey, $accessToken)
+    public function __construct($apiKey, $accessToken, $customEndpoint = null)
     {
         $this->apiKey = $apiKey;
         $this->accessToken = $accessToken;
+        $this->customEndpoint = $customEndpoint;
         $this->initHttpClient();
     }
 
@@ -177,8 +181,10 @@ class Client
      */
     private function initHttpClient()
     {
+        $endpoint = $this->customEndpoint ? $this->customEndpoint : static::BASE_ENDPOINT;
+
         $this->httpClient = new HttpClient([
-            'base_uri' => static::BASE_ENDPOINT,
+            'base_uri' => $endpoint,
             'headers'  => [
                 'User-Agent'	=> 'ghassani/surveymonkey-v3-api-php',
                 'Content-Type'  => 'application/json',
